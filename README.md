@@ -71,6 +71,8 @@ Without DNS, Active Directory would be useless!
 So, why do we want to set the DC’s(Domain Controller) private IP to static? 
 
 Very simple, we don't want to lose connectivity in any given situation. So we set the private IP address to static. 
+<br><br>
+Set DC's private IP to static
 
 <img width="467" alt="image" src="https://github.com/user-attachments/assets/b8e96c08-5ffe-4a4a-95e1-a4531071ef91" />
 
