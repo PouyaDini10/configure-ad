@@ -79,6 +79,24 @@ Create the Windows 10 Virtual Machine
 
 **Important Step:** After the VM is created, set Client-1's DNS settings to DC-1's private IP address.
 
+Why’re we doing this? 
+
+The answer is very straightforward,
+
+First let's examine the capabilities of a Windows Server 2022 VM(Domain Controller):
+Hosts Active Directory Domain Services(AD DS)
+Responsible for domain management
+Handles logins, group policies, user accounts, computer accounts, and more
+Basically it’s the focal point for operations
+
+
+Our Client-1 virtual machine’s DNS server, which by default is the one offered from Azure, has no idea of our private network or the domain in which we are operating. So we need to configure the settings so it knows who to communicate with. 
+
+To get started, on Azure,open Client-1's network settings, navigate to the DNS servers, and input the public IP of the DC-1 VM.
+
+**Configuring DNS settings for Client-1:**
+
+<img width="476" alt="image" src="https://github.com/user-attachments/assets/9bb926d3-40f2-44c4-b28f-c96c4dd62b67" />
 
 
 
