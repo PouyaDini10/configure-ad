@@ -17,12 +17,6 @@ This tutorial outlines the implementation of on-premises Active Directory within
 - Windows Server 2022
 - Windows 10 (21H2)
 
-<h2>High-Level Deployment and Configuration Steps</h2>
-
-- Step 1
-- Step 2
-- Step 3
-- Step 4
 
 <h2>Deployment and Configuration Steps</h2>
 
@@ -43,6 +37,7 @@ Create the virtual machine
 - Click Create to begin the creation process 
 
 <img width="398" alt="image" src="https://github.com/user-attachments/assets/d93456ea-bf7e-427e-94b1-b7d5ab97f700" />
+
 <br><br><br><br>
 
 **Important Step:** Set Domain Controller’s NIC Private IP address to be static
@@ -52,6 +47,7 @@ In this scenario, we will be joining the Client-1 virtual machine to the domain,
 So, why do we want to set the DC’s(Domain Controller) private IP to be static? 
 
 Very simple, we don't want to lose connectivity in any given situation. So we set the private IP address to static. 
+
 <br><br>
 **Setting DC's private IP to static**
 
@@ -84,10 +80,10 @@ Why’re we doing this?
 The answer is very straightforward,
 
 First let's examine the capabilities of a Windows Server 2022 VM(Domain Controller):
-Hosts Active Directory Domain Services(AD DS)
-Responsible for domain management
-Handles logins, group policies, user accounts, computer accounts, and more
-Basically it’s the focal point for operations
+-Hosts Active Directory Domain Services(AD DS)
+-Responsible for domain management
+-Handles logins, group policies, user accounts, computer accounts, and more
+-Basically it’s the focal point for operations
 
 
 Our Client-1 virtual machine’s DNS server, which by default is the one offered from Azure, has no idea of our private network or the domain in which we are operating. So we need to configure the settings so it knows who to communicate with. 
@@ -97,6 +93,11 @@ To get started, on Azure,open Client-1's network settings, navigate to the DNS s
 **Configuring DNS settings for Client-1:**
 
 <img width="476" alt="image" src="https://github.com/user-attachments/assets/9bb926d3-40f2-44c4-b28f-c96c4dd62b67" />
+
+Once you’ve configured the DNS settings, restart the Client-1 virtual machine on azure, remotely connect again and attempt to ping DC-1’s private IP. Observe for a successful ping(we ping to ensure both machines are able to communicate). 
+
+![image](https://github.com/user-attachments/assets/0d87934c-ecbf-4062-8e22-dd29b5c00add)
+
 
 
 
