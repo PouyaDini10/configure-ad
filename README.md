@@ -129,6 +129,7 @@ Login to DC-1 and install Active Directory Domain Services:
 <img width="385" alt="image" src="https://github.com/user-attachments/assets/f60f5921-823c-42d3-9d8b-6dc8923fcfe4" />
 
 <img width="452" alt="image" src="https://github.com/user-attachments/assets/17f30fe2-26d6-4b06-bb2f-57b8dc6b6854" />
+<br><br>
 
 **Join Client-1 to our domain(mydomain.com):**
 - Open settings , go to the About and open the advanced settings
@@ -136,29 +137,47 @@ Login to DC-1 and install Active Directory Domain Services:
 - Under Domain input the domain address, mydomain.com
 - It’s going to ask you for the username/password, input the details
 - Login as the Domain Controller, Verify it shows up in the AD UC(Active Directory Users Computers).
-- Create one last OU(Organizational Unit), “_CLIENTS”
+- Create one last OU(Organizational Unit), “_CLIENTS”, and drag Client-1 into its location
+
+![image](https://github.com/user-attachments/assets/1d913fa5-ef26-48a9-bbfd-2370d4e6b134)
+
+![image](https://github.com/user-attachments/assets/6572d67c-f41d-4e61-a082-290d778832f5)
 
 
 
 
+<br><br><br><br>
+
+**Part 2**
+<br><br>
+
+**Setup Remote Desktop for non-administrative users on Client-1**
+
+- Login to Client-1 as mydomain.com\jane_admin
+- Access System Properties
+- Click Remote Desktop
+- Allow “Domain Users” access to remote desktop
+
+
+![image](https://github.com/user-attachments/assets/9abbcb67-29c5-43d2-ad48-52c23216c072)
 
 
 
+**Create a plethora of users and attempt to log into Client-1 with one of the users**
 
+- Log in to DC-1 as jane_admin
+- Utilize Powershell_ise as an administrator
+- Create a new file and paste the contents of the script into it
+- Run the script and we will observe the content being generated
+- When finished, open ADUC(Active Directory Users & Computers) and observe the content in the appropriate OU(Organizational Unit) (_EMPLOYEES)
+- Attempt to log into Client-1 with one of the accounts we generated
 
+<br><br>
 
+**Powershell_ise as an Administrator**
+![image](https://github.com/user-attachments/assets/e101c903-73ee-4286-9bef-03e0f76d7463)
 
-
-
-
-
-
-**Part 2: Setup Remote Desktop for non-administrative users on Client-1**
-
-
-
-
-
+**Powershell_ise(Integrated Scripting Environment)** is basically a graphical editor with powershell integrated into one unit. What makes it unique is that you run,save,edit, and configure scripts for more versatility.
 
 
 
