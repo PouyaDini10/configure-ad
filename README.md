@@ -130,6 +130,28 @@ Login to DC-1 and install Active Directory Domain Services:
 
 <img width="452" alt="image" src="https://github.com/user-attachments/assets/17f30fe2-26d6-4b06-bb2f-57b8dc6b6854" />
 
+**Join Client-1 to our domain(mydomain.com):**
+- Open settings , go to the About and open the advanced settings
+- Find Computer Name/Domain options 
+- Under Domain input the domain address, mydomain.com
+- It’s going to ask you for the username/password, input the details
+- Login as the Domain Controller, Verify it shows up in the AD UC(Active Directory Users Computers).
+- Create one last OU(Organizational Unit), “_CLIENTS”
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 **Part 2: Setup Remote Desktop for non-administrative users on Client-1**
 
