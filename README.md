@@ -52,14 +52,15 @@ Very simple, we don't want to lose connectivity in any given situation. So we se
 **Setting DC's private IP to static**
 
 <img width="467" alt="image" src="https://github.com/user-attachments/assets/b8e96c08-5ffe-4a4a-95e1-a4531071ef91" />
+<br><br><br>
 
 Next, we must login to the virtual machine and disable the windows firewall. We're only doing this to ensure that Client-1 is able to talk to DC-1 through our internal IP’s.
 Lets first launch our Windows Server 2022 virtual machine to ensure a successful installation. On my computer, I will do a remote connection to the server using RDP & the Server’s Public IP and enter the appropriate credentials. Once logged in, if you see the server manager immediately pop up, everything looks good. In the search bar, type run, and input this command, “wf.msc”, this will open the firewall settings. Turn off the firewall state for all profiles, such as Domain, Private, and Public.
 
-Disable all the firewall settings shown below:
+**Disable all the firewall settings**
 ![image](https://github.com/user-attachments/assets/2f926f97-3e9b-4cf7-a32c-22028b30b028)
 
-
+<br><br><br><br>
 
 
 **Step 2: Create the Client VM (Windows 10) named “Client-1**
@@ -75,20 +76,9 @@ Create the Windows 10 Virtual Machine
 
 **Important Step:** After the VM is created, set Client-1's DNS settings to DC-1's private IP address.
 
-Why’re we doing this? 
-
-The answer is very straightforward,
-
-First let's examine the capabilities of a Windows Server 2022 VM(Domain Controller):
--Hosts Active Directory Domain Services(AD DS)
--Responsible for domain management
--Handles logins, group policies, user accounts, computer accounts, and more
--Basically it’s the focal point for operations
-
-
 Our Client-1 virtual machine’s DNS server, which by default is the one offered from Azure, has no idea of our private network or the domain in which we are operating. So we need to configure the settings so it knows who to communicate with. 
 
-To get started, on Azure,open Client-1's network settings, navigate to the DNS servers, and input the public IP of the DC-1 VM.
+To get started, on Azure, open Client-1's network settings, navigate to the DNS servers, and input the public IP of the DC-1 VM.
 
 **Configuring DNS settings for Client-1:**
 
@@ -98,10 +88,50 @@ Once you’ve configured the DNS settings, restart the Client-1 virtual machine 
 
 ![image](https://github.com/user-attachments/assets/0d87934c-ecbf-4062-8e22-dd29b5c00add)
 
+We can even run the command “ipconfig /all” on powershell to observe that the DNS server’s private IP is set to the domain controller.
+
+![image](https://github.com/user-attachments/assets/b04a7381-7056-461d-96b4-1ed1543810f6)
+
+
+<h2>Deploying Active Directory</h2>
+
+**Part 1**
+
+**Install Active Directory**
+
+Login to DC-1 and install Active Directory Domain Services:
+- Open Server manager
+- Navigate to Add Roles & Features under Manage in the top right hand corner
+- Continue to Server Roles and check the box for Active Directory Domain Services
+- Install
 
 
 
+![image](https://github.com/user-attachments/assets/d7c9cfe3-0875-48ef-875f-8b116e31f1bd)
 
+**Promote as a Domain Controller:**
+- Navigate to the notifications icon and hit “promote this server a domain controller”
+- Click Add a new forest
+- In root domain, input mydomain.com (can be anything you want)
+- Install
+
+
+**Create a domain admin user within the domain:**
+- In Active Directory Users and Computers(AD UC), create an Organizational Unit(OU) called “_EMPLOYEES”
+- Create a new OU(Organizational Unit) called “_ADMINS”
+- Create a new employee named “Jane Doe” with the username of jane_admin and provide a password for that account. 
+- Add Jane Doe to the “Domain Admins” Security Group
+- Log out/close your remote connection and attempt to log back in with “mydomain.com\jane_admin”
+
+
+<img width="367" alt="image" src="https://github.com/user-attachments/assets/84a4e05e-d937-473e-a8fe-2ec84b4bf7a4" />
+
+<img width="385" alt="image" src="https://github.com/user-attachments/assets/f60f5921-823c-42d3-9d8b-6dc8923fcfe4" />
+
+<img width="452" alt="image" src="https://github.com/user-attachments/assets/17f30fe2-26d6-4b06-bb2f-57b8dc6b6854" />
+
+
+**Part 2: Setup Remote Desktop for non-administrative users on Client-1**
 
 
 
