@@ -20,15 +20,29 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 <h2>Deployment and Configuration Steps</h2>
 
-**Step 1: Create the Domain Controller VM (Windows Server 2022) named “DC-1”**
+
+<img width="361" alt="image" src="https://github.com/user-attachments/assets/408f1246-4054-4ae8-b12f-eef80d4beb42" />
+
+**Overview:**
+- I'm going to create a VM running on Server 2022 OS and this will be my domain controller(Server that will run Active Directory Services). In there I will create a forest, “mydomain.com”, and this will be the name of my domain.
+
+- I will then create another VM called Client-1 which will run on Windows 11 OS and this will act as a workstation. My attempt will be to join Client-1 to the domain. My ultimate goal with this virtual machine is to be able to login successfully with the users we created in DC-1(Domain Controller). 
+
+
+
+
+
+
+**Create the Domain Controller VM (Windows Server 2022) named “DC-1”**
 
 What do we mean by Domain Controller? 
 
 This will be the server that runs Active Directory Domain Services(AD DS) and handles all of the core functions.
 
-Create a resource group
-Create virtual network, called Active-Directory Vnet
-Create the virtual machine
+Begin by:
+- Creating a resource group
+- Create virtual network, called Active-Directory Vnet
+- Create the virtual machine
 - Assign the appropriate Resource Group
 - Put it in the same region as your virtual network
 - Image: Windows Server 2022 Datacenter(Azure Edition) x64
@@ -63,7 +77,7 @@ Lets first launch our Windows Server 2022 virtual machine to ensure a successful
 <br><br><br><br>
 
 
-**Step 2: Create the Client VM (Windows 10) named “Client-1**
+**Create the Client VM (Windows 10) named “Client-1**
 
 Create the Windows 10 Virtual Machine 
 -Assign to resource group Active Directory
@@ -167,7 +181,7 @@ Login to DC-1 and install Active Directory Domain Services:
 
 - Log in to DC-1 as jane_admin
 - Utilize Powershell_ise as an administrator
-- Create a new file and paste the contents of the script into it
+- Create a new file and paste the contents of the script(https://github.com/PouyaDini10/configure-ad/blob/main/CreateADusernames) into it
 - Run the script and we will observe the content being generated
 - When finished, open ADUC(Active Directory Users & Computers) and observe the content in the appropriate OU(Organizational Unit) (_EMPLOYEES)
 - Attempt to log into Client-1 with one of the accounts we generated
@@ -179,11 +193,23 @@ Login to DC-1 and install Active Directory Domain Services:
 
 **Powershell_ise(Integrated Scripting Environment)** is basically a graphical editor with powershell integrated into one unit. What makes it unique is that you run,save,edit, and configure scripts for more versatility.
 
+The PowerShell script creates up to 10,000 random Active Directory user accounts using randomly generated first and last names, assigning each user the same password (Password1). It uses a function to create realistic-looking names and then runs a loop to call New-AdUser to create each account in a specific OU called _EMPLOYEES.
 
+![image](https://github.com/user-attachments/assets/192ca7cb-b456-449a-a8ed-b6337dd43486)
 
+<br><br>
 
+Once you have all the code imputed, click run, and the Powershell_ise will begin creating our 1000 users.
 
+You should immediately see this in your console:
 
+![image](https://github.com/user-attachments/assets/7ce2eef6-3672-43b8-848e-eebcc5d21fe7)
+
+<br><br>
+
+Now I'm going to just double check in ADUC(Active directory Users & Computers) to ensure everything is synchronized properly.
+
+![image](https://github.com/user-attachments/assets/7c2bc838-d907-4c31-88e8-e9ed947fa65d)
 
 
 
