@@ -28,10 +28,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 - I will then create another VM called Client-1 which will run on Windows 11 OS and this will act as a workstation. My attempt will be to join Client-1 to the domain. My ultimate goal with this virtual machine is to be able to login successfully with the users we created in DC-1(Domain Controller). 
 
-
-
-
-
+<br><br><br>
 
 **Create the Domain Controller VM (Windows Server 2022) named “DC-1”**
 
